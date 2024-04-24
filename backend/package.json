@@ -1,0 +1,16 @@
+{
+    "name": "@arnaud-b-oc/portfolio-backend",
+    "version": "1.0.0",
+    "main": "dist/main",
+    "scripts": {
+        "dev": "nodemon --exec \"node . --debug\"",
+        "start": "node ."
+    },
+    "author": "Arnaud-B-OC",
+    "license": "ISC",
+    "description": "",
+    "dependencies": {
+        "express": "^4.19.2",
+        "mongoose": "^8.3.2"
+    }
+}
