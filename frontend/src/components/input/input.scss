@@ -1,0 +1,40 @@
+
+@mixin input {
+    font-family: 'Fira Code';
+    border-radius: 1rem;
+
+    width: 100%;
+
+    border: solid 1px rgb(49 49 49 / 15%);
+
+    line-height: 2.5rem;
+    font-size: 1.3rem;
+
+    padding: 1rem;
+
+    &:focus-visible {
+        outline: solid 1px rgb(49 49 49 / 50%);
+    }
+}
+
+form {
+    width: 100%;
+    max-width: 40rem;
+}
+
+.input {
+    label {
+        display: block;
+        font-size: 1.6rem;
+        padding-bottom: 0.5rem
+    }
+
+    input[type=text], input[type=mail] {
+        @include input;
+        text-align: center;
+    }
+    
+    textarea {
+        @include input;
+    }
+}
