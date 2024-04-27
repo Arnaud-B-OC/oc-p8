@@ -1,26 +1,33 @@
-import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { request } from '../../utils/request';
+import { API_Project } from '../../utils/interface';
+import Error404 from '../404/Error404';
 import './project.scss';
 
 export default function Project() {
     const params = useParams();
-
-    console.log(params)
+    const [project, setProject] = useState<API_Project | false | undefined>(undefined);
 
     useEffect(() => {
-        // TODO : request data
-    }, [])
+        request(`/projects/${params.id}`)
+        .then((project) => setProject(project))
+        .catch(() => setProject(false));
+    }, [params.id]);
 
     return <main>
-        <section id='project'>
-            <h2>Project Title - {JSON.stringify(params)}</h2>
+        {project === false && <Error404/>}
+        {project && <section id='project'>
+            <h2>{project.title}</h2>
             
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin leo justo, facilisis in diam sed, blandit pharetra massa. Morbi tempor tortor non risus rhoncus efficitur. Morbi eget ipsum sit amet magna molestie elementum at pellentesque lectus. Suspendisse aliquam, dolor vehicula fringilla dictum, tellus mi posuere est, nec maximus tellus nisl.</p>
+            <p>{project.about}</p>
             
-            <p>
-                Liens...github + site
-                Images...
-            </p>
-        </section>
+            <div className='links'>
+                <Link to={project.githubLink} target='_blank'><img src='/ress/icons/github.svg' alt='github'/></Link>
+                <Link to={project.websiteLink} target='_blank'><img src='/ress/icons/link.svg' alt='linkedin'/></Link>
+            </div>
+
+            <img src={project.image} alt=''/>
+        </section>}
     </main>
 }

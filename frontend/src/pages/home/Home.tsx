@@ -4,6 +4,8 @@ import Skill from '../../components/skill/Skill';
 import Input from '../../components/input/Input';
 import './home.scss';
 import { Link } from 'react-router-dom';
+import { request } from '../../utils/request';
+import { API_Project } from '../../utils/interface';
 
 const SKILLS = [
     {
@@ -44,40 +46,14 @@ const SKILLS = [
     },
 ];
 
-const PROJECTS = [
-    {
-        title: 'Booki',
-        link: '/project/booki',
-        preview: '/ress/images/projects/booki.jpg',
-    },
-    {
-        title: 'Sophie Bluel',
-        link: '/project/bluel',
-        preview: '/ress/images/projects/bluel.jpg',
-    },
-    {
-        title: 'Nina Carducci',
-        link: '/project/nina-carducci',
-        preview: '/ress/images/projects/nina.jpg',
-    },
-    {
-        title: 'Kasa',
-        link: '/project/kasa',
-        preview: '/ress/images/projects/kasa.jpg',
-    },
-    {
-        title: 'Mon Vieux Grimoire',
-        link: '/project/mon-vieux-grimoire',
-        preview: '/ress/images/projects/mvg.jpg',
-    },
-]
 
 export default function Home() {
-
-    const [skills, setSkills] = useState<{url:string, alt: string}[]>([]);
+    const [projects, setProjects] = useState<API_Project[]>([]);
 
     useEffect(() => {
-        setSkills(SKILLS)
+        request('/projects')
+        .then((projects : API_Project[]) => setProjects(projects))
+        .catch(() => {});
     }, []);
 
     const sendMessage = (e: React.FormEvent<HTMLFormElement>) => {
@@ -113,7 +89,7 @@ export default function Home() {
                 <article id='skills'>
                     <h4>Compétences</h4>
 
-                    {skills.map((skill, index) => <Skill key={index} {...skill}/>)}
+                    {SKILLS.map((skill, index) => <Skill key={index} {...skill}/>)}
                 </article>
             </section>
 
@@ -122,7 +98,7 @@ export default function Home() {
 
                 {/* TODO : Request */}
                 <div>
-                    {PROJECTS.map((project, index) => <ProjectArticle key={index} {...project}/>)}
+                    {projects.map((project, index) => <ProjectArticle key={index} {...project}/>)}
                 </div>
 
                 <svg fill="#000000" height="50px" width="100%" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"  
