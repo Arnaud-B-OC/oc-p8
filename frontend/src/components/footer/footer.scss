@@ -1,0 +1,21 @@
+
+// TODO : Fix footer to bottom
+
+footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+    a {
+        transition: color 0.2s;
+
+        &:hover {
+            color: var(--bleu-h);
+        }
+    }
+    a, p {
+        font-size: 1.2rem;
+        color: var(--black);
+        padding: 1rem;
+    }
+}
