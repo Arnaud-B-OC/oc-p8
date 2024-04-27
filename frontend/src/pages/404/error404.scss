@@ -1,0 +1,14 @@
+
+#error {
+    padding-top: 15rem;
+
+    a {
+        font-size: 1.6rem;
+        color: var(--black);
+        transition: color 0.2s;
+
+        &:hover {
+            color: var(--bleu-h);
+        }
+    }
+}
