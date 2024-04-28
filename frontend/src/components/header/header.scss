@@ -9,6 +9,8 @@ header {
     transition: background-color 0.5s;
 
     nav {
+        height: 8rem;
+
         display: flex;
         justify-content: center;
         align-items: center;
@@ -29,6 +31,21 @@ header {
             }
         }
     }
+
+    a.h {
+        display: none;
+        text-align: center;
+        color: white;
+
+        user-select: none;
+
+        margin: 0;
+        padding: 0;
+
+        &:hover {
+            color: #d7d7d7 !important;
+        }
+    }
 }
 
 header.color {
@@ -36,11 +53,23 @@ header.color {
 
     nav a {
         transition: background-color 0.2s;
-        // border-radius: 10px;
 
         &:hover {
-            // background-color: var(--bleu-h);
             color: var(--bleu-h);
+        }
+    }
+}
+
+@media screen and (max-width: 800px) {
+    header {
+        nav a:not(.h) {
+            display: none;
+        }
+    }
+
+    header.color {
+        a.h {
+            display: block;
         }
     }
 }

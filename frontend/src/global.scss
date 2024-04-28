@@ -32,7 +32,6 @@ main {
 }
 
 section {
-    // min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-content: center;
@@ -67,7 +66,6 @@ p {
 
 button, .btn {
     background-color: var(--bleu);
-    // border-radius: 1.6rem;
     color: white;
     font-size: 1.8rem;
     font-weight: bold;

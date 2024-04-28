@@ -49,6 +49,10 @@ const SKILLS = [
         alt: 'mariadb',
     },
     {
+        url: '/ress/icons/nginx.svg',
+        alt: 'nginx',
+    },
+    {
         url: '/ress/icons/docker.svg',
         alt: 'docker',
     },
