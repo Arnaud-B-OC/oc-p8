@@ -6,7 +6,9 @@ header {
     position: fixed;
     background-color: var(--bleu);
     background-color: #00000075;
-    transition: background-color 0.5s;
+    transition: 
+        background-color 0.5s,
+        opacity 0.3s;
 
     nav {
         height: 8rem;
@@ -65,6 +67,10 @@ header.color {
         nav a:not(.h) {
             display: none;
         }
+    }
+    
+    header:not(.color) {
+        opacity: 0;
     }
 
     header.color {
