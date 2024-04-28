@@ -9,20 +9,21 @@ a {
     text-decoration: none;
 }
 
-body {
-    font-family: 'Fira Code';
-    color: var(--black);
-    background-color: #fefefe;
-}
 
 :root {
     font-size: 62.5%;
     scroll-behavior: smooth;
 
-    --bleu: #597ad2;
+    --bleu: #5974BE;
     --bleu-h: #3353aa;
 
     --black: #343434;
+}
+
+body {
+    font-family: 'Fira Code';
+    color: var(--black);
+    background-color: #fefefe;
 }
 
 main {

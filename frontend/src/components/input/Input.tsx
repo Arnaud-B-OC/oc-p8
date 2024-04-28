@@ -2,18 +2,19 @@ import { HTMLInputTypeAttribute } from 'react';
 import './input.scss';
 
 interface InputOptions {
+    name: string
     placeholder: string
     type?: HTMLInputTypeAttribute
     textArea?: boolean
 }
 
-export default function Input({placeholder, type, textArea} : InputOptions) {
+export default function Input({name, placeholder, type, textArea} : InputOptions) {
     return <div className='input'>
-        <label>{placeholder}</label>
+        <label htmlFor={name}>{placeholder}</label>
         {textArea ?
-            <textarea rows={5}></textarea>
+            <textarea id={name} name={name} rows={5}></textarea>
             :
-            <input type={type ?? 'text'}/>
+            <input id={name} name={name} type={type ?? 'text'}/>
         }
     </div>
 }

@@ -29,7 +29,7 @@ export default function Home() {
     return <>
         <main>
             <section id='home'>
-                <img src='/ress/images/nature.jpg' alt=''/>
+                <img src='/ress/images/nature.webp' alt=''/>
 
                 <h1>Arnaud B</h1>
                 <h2>Développeur Web</h2>
@@ -66,9 +66,9 @@ export default function Home() {
                 <h3>Me contacter</h3>
 
                 <form onSubmit={sendMessage}>
-                    <Input placeholder='Nom :'/>
-                    <Input placeholder='Email :' type='mail'/>
-                    <Input placeholder='Message :' textArea/>
+                    <Input name='name' placeholder='Nom :'/>
+                    <Input name='mail' placeholder='Email :' type='mail'/>
+                    <Input name='message' placeholder='Message :' textArea/>
 
                     <button>Envoyer</button>
                 </form>

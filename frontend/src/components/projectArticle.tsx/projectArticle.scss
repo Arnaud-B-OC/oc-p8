@@ -4,6 +4,10 @@
     transition: background-color 0.2s;
 
     img {
+        aspect-ratio: 300 / 250;
+        max-width: 30rem;
+        width: 100%;
+
         border-bottom: 1px solid rgba(49, 49, 49, 0.1921568627);
     }
     p {
