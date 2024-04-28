@@ -10,11 +10,12 @@ export default function Header() {
     useEffect(() => {
         const scroll = () => {
             const currentScroll = window.scrollY;
-            if (currentScroll > 850 && !navBarSolid) {
+            const currentHeight = window.innerHeight - 80;
+            if (currentScroll > currentHeight && !navBarSolid) {
                 document.removeEventListener('scroll', scroll);
                 setNavBarSolid(true);
             }
-            else if (window.scrollY < 850 && navBarSolid) {
+            else if (window.scrollY < currentHeight && navBarSolid) {
                 document.removeEventListener('scroll', scroll);
                 setNavBarSolid(false);
             }
@@ -26,11 +27,7 @@ export default function Header() {
     return <header className={(location.pathname !== '/' || navBarSolid) ? 'color' : undefined}>        
         <nav>
             <HashLink className='h' to='/'>
-                <p>
-                    Arnaud B
-                    <br/>
-                    Developpeur Web
-                </p>
+                <p>Arnaud B<br/>Développeur Web</p>
             </HashLink>
             
             <HashLink to='/#about'>&Agrave; Propos</HashLink>

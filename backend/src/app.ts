@@ -69,6 +69,56 @@ const PROJECTS = [
     },
 ];
 
+const SKILLS = [
+    {
+        url: '/ress/icons/html5.svg',
+        alt: 'html',
+    },
+    {
+        url: '/ress/icons/css3.svg',
+        alt: 'css',
+    },
+    {
+        url: '/ress/icons/javascript.svg',
+        alt: 'javascript',
+    },
+    {
+        url: '/ress/icons/react.svg',
+        alt: 'react',
+    },
+    {
+        url: '/ress/icons/sass.svg',
+        alt: 'sass',
+    },
+    {
+        url: '/ress/icons/nodejs.svg',
+        alt: 'nodejs',
+    },
+    {
+        url: '/ress/icons/typescript.svg',
+        alt: 'typescript',
+    },
+    {
+        url: '/ress/icons/git.svg',
+        alt: 'git',
+    },
+    {
+        url: '/ress/icons/mongodb.svg',
+        alt: 'mongodb',
+    },
+    {
+        url: '/ress/icons/mariadb.svg',
+        alt: 'mariadb',
+    },
+    {
+        url: '/ress/icons/nginx.svg',
+        alt: 'nginx',
+    },
+    {
+        url: '/ress/icons/docker.svg',
+        alt: 'docker',
+    },
+];
 
 
 
@@ -85,6 +135,8 @@ app.get('/api/projects/:id', (req, res) => {
     if (project) res.status(200).json(project);
     else res.status(404).json({});
 });
+
+app.get('/api/skills', (req, res) => res.status(200).json(SKILLS));
 
 // ### Redir All To index.html ### //
 app.get('*', (req, res) => res.sendFile('build/index.html', {root: path.join(__dirname, '..')}));

@@ -15,7 +15,5 @@ export default function Input({placeholder, type, textArea} : InputOptions) {
             :
             <input type={type ?? 'text'}/>
         }
-        
-        
     </div>
 }

@@ -9,3 +9,8 @@ export interface API_Project {
     githubLink: string
     websiteLink: string
 }
+
+export interface API_Skill {
+    url: string
+    alt: string
+}
