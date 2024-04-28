@@ -1,9 +1,12 @@
 
 header {
+    z-index: 100;
+
     width: 100%;
     position: fixed;
     background-color: var(--bleu);
     background-color: #00000075;
+    transition: background-color 0.5s;
 
     nav {
         display: flex;
@@ -14,20 +17,30 @@ header {
         a {
             color: white;
             font-size: 1.6rem;
-
-            // background-color: var(--bleu);
-            // border-radius: 1.6rem;
-            color: white;
-            font-size: 1.8rem;
             font-weight: bold;
             text-align: center;
             width: fit-content;
             margin: 1rem;
             padding: 1.5rem 3rem;
             transition: color 0.2s;
+
+            &:hover {
+                color: #323232;
+            }
         }
-        a:hover {
-            color: #323232;
+    }
+}
+
+header.color {
+    background-color: var(--bleu);
+
+    nav a {
+        transition: background-color 0.2s;
+        // border-radius: 10px;
+
+        &:hover {
+            // background-color: var(--bleu-h);
+            color: var(--bleu-h);
         }
     }
 }

@@ -12,6 +12,7 @@ a {
 body {
     font-family: 'Fira Code';
     color: var(--black);
+    background-color: #fefefe;
 }
 
 :root {
@@ -66,7 +67,7 @@ p {
 
 button, .btn {
     background-color: var(--bleu);
-    border-radius: 1.6rem;
+    // border-radius: 1.6rem;
     color: white;
     font-size: 1.8rem;
     font-weight: bold;
@@ -80,4 +81,8 @@ button, .btn {
     &:hover {
         background-color: var(--bleu-h);  
     }
+}
+
+section:last-child {
+    padding-bottom: 5rem;
 }

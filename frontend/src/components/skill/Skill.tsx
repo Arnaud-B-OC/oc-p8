@@ -6,7 +6,8 @@ interface SkillOptions {
 }
 
 export default function Skill({url, alt} : SkillOptions) {
-    return <>
-        <img className='skill' src={url} alt={alt}/>
-    </>
+    return <div className='skill'>
+        <span>{alt}</span>
+        <img src={url} alt={alt}/>
+    </div>
 }

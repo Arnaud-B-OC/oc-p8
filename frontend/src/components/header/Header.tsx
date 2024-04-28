@@ -1,13 +1,35 @@
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
 import './header.scss';
 
 export default function Header() {
-    return <header>
+    const location = useLocation();
+    const [navBarSolid, setNavBarSolid] = useState(false);
+
+
+    useEffect(() => {
+        const scroll = () => {
+            const currentScroll = window.scrollY;
+            if (currentScroll > 850 && !navBarSolid) {
+                document.removeEventListener('scroll', scroll);
+                setNavBarSolid(true);
+            }
+            else if (window.scrollY < 850 && navBarSolid) {
+                document.removeEventListener('scroll', scroll);
+                setNavBarSolid(false);
+            }
+        }
+
+        document.addEventListener('scroll', scroll);
+    }, [navBarSolid])
+
+    return <header className={(location.pathname !== '/' || navBarSolid) ? 'color' : undefined}>        
         <nav>
-            <a href='/#about'>&Agrave; Propos</a>
-            <a href='/#skills'>Compétences</a>
-            <a href='/#projects'>Projets</a>
-            <a href='/#contact'>Contact</a>
+            <HashLink to='/#about'>&Agrave; Propos</HashLink>
+            <HashLink to='/#skills'>Compétences</HashLink>
+            <HashLink to='/#projects'>Projets</HashLink>
+            <HashLink to='/#contact'>Contact</HashLink>
         </nav>
     </header>
 }

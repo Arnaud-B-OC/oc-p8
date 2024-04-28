@@ -1,0 +1,23 @@
+
+.projectArticle {
+    border: 1px solid rgba(49, 49, 49, 0.1921568627);
+    transition: background-color 0.2s;
+
+    img {
+        border-bottom: 1px solid rgba(49, 49, 49, 0.1921568627);
+    }
+    p {
+        transition: color 0.2s;
+        color: #313131;
+        padding: 0.5rem;
+        font-weight: 500;
+    }
+
+    &:hover {
+        background-color: var(--bleu);
+
+        p {
+            color: white;
+        }
+    }
+}
