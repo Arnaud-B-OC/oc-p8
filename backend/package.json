@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "main": "dist/main",
     "scripts": {
-        "dev": "nodemon --exec \"node . --debug\"",
+        "dev": "nodemon --exec \"node --env-file .env . --debug\"",
         "start": "node ."
     },
     "author": "Arnaud-B-OC",
@@ -11,6 +11,7 @@
     "description": "",
     "dependencies": {
         "express": "^4.19.2",
+        "express-mongo-sanitize": "^2.2.0",
         "mongoose": "^8.3.2"
     },
     "devDependencies": {
