@@ -1,10 +1,6 @@
 import { Router } from 'express';
-import { Database } from '../database/database';
+import { getSkills } from '../controllers/skills.controller';
 
 export const skillsRoutes = Router();
 
-skillsRoutes.get('', (req, res) => {
-    Database.skills.get()
-    .then((skills) => res.status(200).json(skills))
-    .catch(() => res.status(500));
-});
+skillsRoutes.get('', getSkills);

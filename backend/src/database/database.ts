@@ -1,6 +1,7 @@
 import mongoose = require('mongoose');
 import { get_project, get_projects } from './func/project.db';
 import { get_skills } from './func/skill.db';
+import { create_contact } from './func/contact.db';
 
 export class Database {
     // ### Instance ### //
@@ -30,5 +31,9 @@ export class Database {
 
     public static skills = {
         get: get_skills.bind(this.i),
+    }
+    
+    public static contact = {
+        create: create_contact.bind(this.i),
     }
 }

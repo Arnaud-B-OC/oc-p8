@@ -3,6 +3,7 @@ import express = require('express');
 import mongoSanitize = require('express-mongo-sanitize');
 import { projectsRoutes } from './routes/projects.route';
 import { skillsRoutes } from './routes/skills.routes';
+import { contactRoutes } from './routes/contact.route';
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use(express.json(), mongoSanitize());
 // ### API Routes ### //
 app.use('/api/projects', projectsRoutes);
 app.use('/api/skills', skillsRoutes);
+app.use('/api/contact', contactRoutes);
 
 // ### Redir All To index.html ### //
 app.use(express.static('build'));
