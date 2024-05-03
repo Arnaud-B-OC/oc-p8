@@ -87,3 +87,23 @@
         gap: 2rem;
     }
 }
+
+.contactResult {
+    text-align: center;
+    padding: 6rem 3rem;
+    border: solid var(--bleu) 5px;
+    margin: 3rem 0;
+
+}
+
+#homepage {
+    section {
+        transition: 0.5s opacity;
+        transition-timing-function: cubic-bezier(0.55, 0.06, 0.68, 0.19);
+        opacity: 0;
+
+        &.show {
+            opacity: 1;
+        }
+    }
+}

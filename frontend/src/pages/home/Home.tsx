@@ -1,9 +1,9 @@
 import { API_Project, API_Skill } from '../../utils/interface';
-import { request } from '../../utils/request';
+import { request, requestPost } from '../../utils/request';
 import ProjectArticle from '../../components/projectArticle.tsx/ProjectArticle';
 import Skill from '../../components/skill/Skill';
 import Input from '../../components/input/Input';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './home.scss';
 
@@ -21,58 +21,118 @@ export default function Home() {
         .catch(() => {});
     }, []);
 
+    const [contactFormResult, setContactFormResult] = useState<boolean>(false);
+
     const sendMessage = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // TODO : Send Message To API
+
+        const target = e.target as typeof e.target & {
+            name: { value: string };
+            mail: { value: string };
+            message: { value: string };
+        };
+
+        console.log({
+            name: target.name.value,
+            mail: target.mail.value,
+            message: target.message.value,
+        })
+
+        requestPost('/contact', {
+            name: target.name.value,
+            mail: target.mail.value,
+            message: target.message.value,
+        })
+        .then((result) => {
+            setContactFormResult(true);
+        })
+        .catch((err) => {
+
+        });
     }
+    
+    const sectionAboutRef = useRef<HTMLHeadingElement | null>(null);
+    const sectionProjectsRef = useRef<HTMLHeadingElement | null>(null);
+    const sectionContactRef = useRef<HTMLHeadingElement | null>(null);
 
-    return <>
-        <main>
-            <section id='home'>
-                <img src='/ress/images/nature.webp' alt=''/>
+    const [showSection1, setShowSection1] = useState<boolean>(false);
+    const [showSection2, setShowSection2] = useState<boolean>(false);
+    const [showSection3, setShowSection3] = useState<boolean>(false);
 
-                <h1>Arnaud B</h1>
-                <h2>Développeur Web</h2>
-            </section>
+    useEffect(() => {
+        const observer = new IntersectionObserver((entries) => {
+            entries.map((entry) => {
+                switch (parseInt(entry.target.getAttribute('x-index') ?? 'NaN')) {
+                    case 1:
+                        setShowSection1(entry.isIntersecting);
+                        break;
+                    case 2:
+                        setShowSection2(entry.isIntersecting);
+                        break;
+                    case 3:
+                        setShowSection3(entry.isIntersecting);
+                        break;
+                    default:
+                        break;
+                }
 
-            <section id='about'>
-                <h3>&Agrave; Propos</h3>
+                return undefined;
+            });
+        }, { rootMargin: '-300px' });
+
+        observer.observe(sectionAboutRef.current!);
+        observer.observe(sectionProjectsRef.current!);
+        observer.observe(sectionContactRef.current!);
+        
+        return () => observer.disconnect();
+    }, []);
+    
+    return <main id='homepage'>
+        <section id='home' className='show'>
+            <img src='/ress/images/nature.webp' alt=''/>
+            
+            <h1>Arnaud B</h1>
+            <h2>Développeur Web</h2>
+        </section>
+        
+        <section id='about' className={showSection1 ? 'show' : undefined} x-index={1} ref={sectionAboutRef}>
+            <h3>&Agrave; Propos</h3>
                 
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin leo justo, facilisis in diam sed, blandit pharetra massa. Morbi tempor tortor non risus rhoncus efficitur. Morbi eget ipsum sit amet magna molestie elementum at pellentesque lectus. Suspendisse aliquam, dolor vehicula fringilla dictum, tellus mi posuere est, nec maximus tellus nisl.
-                </p>
-
-                <div className='links'>
-                    <Link to='https://github.com/Arnaud-B-OC/' target='_blank'><img src='/ress/icons/github.svg' alt='github'/></Link>
-                    <Link to='https://linkedin.com/in//' target='_blank'><img src='/ress/icons/linkedin.svg' alt='linkedin'/></Link>
-                </div>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin leo justo, facilisis in diam sed, blandit pharetra massa. Morbi tempor tortor non risus rhoncus efficitur. Morbi eget ipsum sit amet magna molestie elementum at pellentesque lectus. Suspendisse aliquam, dolor vehicula fringilla dictum, tellus mi posuere est, nec maximus tellus nisl.
+            </p>
+            
+            <div className='links'>
+                <Link to='https://github.com/Arnaud-B-OC/' target='_bslank'><img src='/ress/icons/github.svg' alt='github'/></Link>
+                <Link to='https://linkedin.com/in//' target='_blank'><img src='/ress/icons/linkedin.svg' alt='linkedin'/></Link>
+            </div>
+            
+            <article id='skills'>
+                <h4>Compétences</h4>
                 
-                <article id='skills'>
-                    <h4>Compétences</h4>
-
-                    {apiData?.skills.map((skill, index) => <Skill key={index} {...skill}/>)}
-                </article>
-            </section>
-
-            <section id='projects'>
-                <h3>Mes Projets</h3>
-
-                <div>
-                    {apiData?.projects.map((project, index) => <ProjectArticle key={index} {...project}/>)}
-                </div>
-            </section>
-
-            <section id='contact'>
-                <h3>Me contacter</h3>
-
-                <form onSubmit={sendMessage}>
-                    <Input name='name' placeholder='Nom :'/>
-                    <Input name='mail' placeholder='Email :' type='mail'/>
-                    <Input name='message' placeholder='Message :' textArea/>
-
-                    <button>Envoyer</button>
-                </form>
-            </section>
-        </main>
-    </>
+                {apiData?.skills.map((skill, index) => <Skill key={index} {...skill}/>)}
+            </article>
+        </section>
+        
+        <section id='projects' className={showSection2 ? 'show' : undefined} x-index={2} ref={sectionProjectsRef}>
+            <h3>Mes Projets</h3>
+            
+            <div>
+                {apiData?.projects.map((project, index) => <ProjectArticle key={index} {...project}/>)}
+            </div>
+        </section>
+        
+        <section id='contact' className={showSection3 ? 'show' : undefined} x-index={3} ref={sectionContactRef}>
+            <h3>Me contacter</h3>
+            
+            {!contactFormResult && <form onSubmit={sendMessage}>
+                <Input name='name' placeholder='Nom :'/>
+                <Input name='mail' placeholder='Email :' type='mail'/>
+                <Input name='message' placeholder='Message :' textArea/>
+                
+                <button>Envoyer</button>
+            </form>}
+            {contactFormResult && <p className='contactResult'>Message envoyé avec succès&nbsp;!</p>}
+        </section>
+    </main>
 }
