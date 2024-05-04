@@ -21,7 +21,7 @@ export default function Home() {
         .catch(() => {});
     }, []);
 
-    const [contactFormResult, setContactFormResult] = useState<boolean>(false);
+    const [contactFormResult, setContactFormResult] = useState<boolean | string>(false);
 
     const sendMessage = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -43,12 +43,8 @@ export default function Home() {
             mail: target.mail.value,
             message: target.message.value,
         })
-        .then((result) => {
-            setContactFormResult(true);
-        })
-        .catch((err) => {
-
-        });
+        .then((result) => setContactFormResult(true))
+        .catch((err) => setContactFormResult(err.err));
     }
     
     const sectionAboutRef = useRef<HTMLHeadingElement | null>(null);
@@ -61,8 +57,10 @@ export default function Home() {
 
     useEffect(() => {
         const observer = new IntersectionObserver((entries) => {
+
+
             entries.map((entry) => {
-                switch (parseInt(entry.target.getAttribute('x-index') ?? 'NaN')) {
+                switch (parseInt(entry.target.getAttribute('data-index') ?? 'NaN')) {
                     case 1:
                         setShowSection1(entry.isIntersecting);
                         break;
@@ -95,15 +93,15 @@ export default function Home() {
             <h2>Développeur Web</h2>
         </section>
         
-        <section id='about' className={showSection1 ? 'show' : undefined} x-index={1} ref={sectionAboutRef}>
+        <section id='about' className={showSection1 ? 'show' : undefined} data-index={1} ref={sectionAboutRef}>
             <h3>&Agrave; Propos</h3>
-                
+
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin leo justo, facilisis in diam sed, blandit pharetra massa. Morbi tempor tortor non risus rhoncus efficitur. Morbi eget ipsum sit amet magna molestie elementum at pellentesque lectus. Suspendisse aliquam, dolor vehicula fringilla dictum, tellus mi posuere est, nec maximus tellus nisl.
             </p>
             
             <div className='links'>
-                <Link to='https://github.com/Arnaud-B-OC/' target='_bslank'><img src='/ress/icons/github.svg' alt='github'/></Link>
+                <Link to='https://github.com/Arnaud-B-OC/' target='_blank'><img src='/ress/icons/github.svg' alt='github'/></Link>
                 <Link to='https://linkedin.com/in//' target='_blank'><img src='/ress/icons/linkedin.svg' alt='linkedin'/></Link>
             </div>
             
@@ -114,7 +112,7 @@ export default function Home() {
             </article>
         </section>
         
-        <section id='projects' className={showSection2 ? 'show' : undefined} x-index={2} ref={sectionProjectsRef}>
+        <section id='projects' className={showSection2 ? 'show' : undefined} data-index={2} ref={sectionProjectsRef}>
             <h3>Mes Projets</h3>
             
             <div>
@@ -122,17 +120,18 @@ export default function Home() {
             </div>
         </section>
         
-        <section id='contact' className={showSection3 ? 'show' : undefined} x-index={3} ref={sectionContactRef}>
+        <section id='contact' className={showSection3 ? 'show' : undefined} data-index={3} ref={sectionContactRef}>
             <h3>Me contacter</h3>
-            
-            {!contactFormResult && <form onSubmit={sendMessage}>
+
+            {typeof contactFormResult == 'string' && <p className='contactError'>{contactFormResult}</p>}
+            {(contactFormResult === false || typeof contactFormResult == 'string') && <form onSubmit={sendMessage}>
                 <Input name='name' placeholder='Nom :'/>
-                <Input name='mail' placeholder='Email :' type='mail'/>
+                <Input name='mail' placeholder='Email :' type='email'/>
                 <Input name='message' placeholder='Message :' textArea/>
                 
                 <button>Envoyer</button>
             </form>}
-            {contactFormResult && <p className='contactResult'>Message envoyé avec succès&nbsp;!</p>}
+            {contactFormResult === true && <p className='contactResult'>Message envoyé avec succès&nbsp;!</p>}
         </section>
     </main>
 }

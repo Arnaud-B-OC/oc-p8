@@ -14,10 +14,18 @@ export function request(endpoint: string) {
 export function requestPost(endpoint: string, data: any) {
     return new Promise<any>((resolve, reject) => {
         fetch(HOST + endpoint, { method: 'POST', headers: {'content-type': 'application/json'}, body: JSON.stringify(data) }).then((data) => {
-            if (data.status.toString().startsWith('2')) return data.json();
-            else if (data.status.toString().startsWith('3')) return data.json();
+            if (data.status.toString().startsWith('2') || data.status.toString().startsWith('3')) {
+                data.json()
+                .then(resolve)
+                .catch(console.error);
+            }
+            else if (data.status.toString().startsWith('4')) {
+                data.json()
+                .then(reject)
+                .catch(console.error);
+            }
             else reject();
-        }).then(resolve)
+        })
         .catch(console.error);
     });
 }
