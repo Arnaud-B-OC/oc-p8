@@ -4,9 +4,9 @@ import './projectArticle.scss';
 
 export default function ProjectArticle({preview, title, id} : API_Project) {
     return <Link to={`/project/${id}`} className='projectArticle'>
-        <article>
+        <div className='project'>
             <img src={preview} alt=''/>
             <p>{title}</p>
-        </article>
+        </div>
     </Link>
 }

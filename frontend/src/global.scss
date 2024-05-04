@@ -66,6 +66,7 @@ p {
 }
 
 button, .btn {
+    cursor: pointer;
     background-color: var(--bleu);
     color: white;
     font-size: 1.8rem;

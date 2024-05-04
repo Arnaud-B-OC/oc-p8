@@ -29,7 +29,7 @@ form {
         padding-bottom: 0.5rem
     }
 
-    input[type=text], input[type=mail] {
+    input[type=text], input[type=email] {
         @include input;
         text-align: center;
     }
