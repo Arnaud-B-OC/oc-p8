@@ -4,7 +4,8 @@
     "main": "dist/main",
     "scripts": {
         "dev": "nodemon --exec \"node --env-file .env . --debug\"",
-        "start": "node ."
+        "build": "npx tsc",
+        "start": "node --env-file .env ."
     },
     "author": "Arnaud-B-OC",
     "license": "ISC",
@@ -15,6 +16,7 @@
         "mongoose": "^8.3.2"
     },
     "devDependencies": {
-        "@types/express": "^4.17.21"
+        "@types/express": "^4.17.21",
+        "typescript": "^5.4.5"
     }
 }
