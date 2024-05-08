@@ -1,31 +1,29 @@
 const HOST = (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') ? 'http://localhost:80/api' : '/api';
 
-export function request(endpoint: string) {
+export function request(endpoint: string, data?: object) {
     return new Promise<any>((resolve, reject) => {
-        fetch(HOST + endpoint).then((data) => {
-            if (data.status.toString().startsWith('2')) return data.json();
-            else if (data.status.toString().startsWith('3')) return data.json();
-            else reject();
-        }).then(resolve)
-        .catch(console.error);
-    });
-}
 
-export function requestPost(endpoint: string, data: any) {
-    return new Promise<any>((resolve, reject) => {
-        fetch(HOST + endpoint, { method: 'POST', headers: {'content-type': 'application/json'}, body: JSON.stringify(data) }).then((data) => {
-            if (data.status.toString().startsWith('2') || data.status.toString().startsWith('3')) {
-                data.json()
-                .then(resolve)
-                .catch(console.error);
-            }
-            else if (data.status.toString().startsWith('4')) {
-                data.json()
-                .then(reject)
-                .catch(console.error);
-            }
-            else reject();
+        fetch(HOST + endpoint, {
+            method: data ? 'POST' : 'GET',
+            headers: data ? {'content-type': 'application/json'} : undefined,
+            body: data ? JSON.stringify(data) : undefined
         })
-        .catch(console.error);
+        .then((res) => {
+            const statusCode = res.status.toString();
+
+            if (statusCode.startsWith('2') || statusCode.startsWith('3')) {
+                res.json().then(resolve).catch(console.error);
+            }
+            else if (statusCode.startsWith('4')) {
+                res.json().then(reject).catch(console.error);
+            }
+            else {
+                reject();
+            }
+        })
+        .catch((err) => {
+            console.error(err);
+            reject({err: 'Connection Error'})
+        });
     });
 }
