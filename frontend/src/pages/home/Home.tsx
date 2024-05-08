@@ -1,10 +1,10 @@
-import { API_Project, API_Skill } from '../../utils/interface';
-import { request, requestPost } from '../../utils/request';
-import ProjectArticle from '../../components/projectArticle.tsx/ProjectArticle';
-import Skill from '../../components/skill/Skill';
-import Input from '../../components/input/Input';
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { API_Project, API_Skill } from '../../utils/interface';
+import { request } from '../../utils/request';
+import ProjectArticle from '../../components/projectArticle/ProjectArticle';
+import ContactForm from '../../components/contactForm/ContactForm';
+import Skill from '../../components/skill/Skill';
 import './home.scss';
 
 interface API_Data {
@@ -21,32 +21,6 @@ export default function Home() {
         .catch(() => {});
     }, []);
 
-    const [contactFormResult, setContactFormResult] = useState<boolean | string>(false);
-
-    const sendMessage = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-
-        const target = e.target as typeof e.target & {
-            name: { value: string };
-            mail: { value: string };
-            message: { value: string };
-        };
-
-        console.log({
-            name: target.name.value,
-            mail: target.mail.value,
-            message: target.message.value,
-        })
-
-        requestPost('/contact', {
-            name: target.name.value,
-            mail: target.mail.value,
-            message: target.message.value,
-        })
-        .then((result) => setContactFormResult(true))
-        .catch((err) => setContactFormResult(err.err));
-    }
-    
     const sectionAboutRef = useRef<HTMLHeadingElement | null>(null);
     const sectionProjectsRef = useRef<HTMLHeadingElement | null>(null);
     const sectionContactRef = useRef<HTMLHeadingElement | null>(null);
@@ -57,8 +31,6 @@ export default function Home() {
 
     useEffect(() => {
         const observer = new IntersectionObserver((entries) => {
-
-
             entries.map((entry) => {
                 switch (parseInt(entry.target.getAttribute('data-index') ?? 'NaN')) {
                     case 1:
@@ -76,7 +48,7 @@ export default function Home() {
 
                 return undefined;
             });
-        }, { rootMargin: '-300px' });
+        }, { rootMargin: '0px 0px -300px 0px', });
 
         observer.observe(sectionAboutRef.current!);
         observer.observe(sectionProjectsRef.current!);
@@ -96,10 +68,15 @@ export default function Home() {
         <section id='about' className={showSection1 ? 'show' : undefined} data-index={1} ref={sectionAboutRef}>
             <h3>&Agrave; Propos</h3>
 
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin leo justo, facilisis in diam sed, blandit pharetra massa. Morbi tempor tortor non risus rhoncus efficitur. Morbi eget ipsum sit amet magna molestie elementum at pellentesque lectus. Suspendisse aliquam, dolor vehicula fringilla dictum, tellus mi posuere est, nec maximus tellus nisl.
+            <p className='pre'>
+                Je m'appelle Arnaud et je suis développeur web<br/><br/>
+                
+                J'aime travailler sur la création de nouveaux projets du début à la fin ainsi que les maintenir<br/><br/>
+
+                Je suis passionné d'informatique depuis toujours<br/>
+                Grâce à OpenClassroom j'ai perfectionné et renforcé mes compétences dans ce domaine
             </p>
-            
+
             <div className='links'>
                 <Link to='https://github.com/Arnaud-B-OC/' target='_blank'><img src='/ress/icons/github.svg' alt='github'/></Link>
                 <Link to='https://linkedin.com/in//' target='_blank'><img src='/ress/icons/linkedin.svg' alt='linkedin'/></Link>
@@ -123,15 +100,7 @@ export default function Home() {
         <section id='contact' className={showSection3 ? 'show' : undefined} data-index={3} ref={sectionContactRef}>
             <h3>Me contacter</h3>
 
-            {typeof contactFormResult == 'string' && <p className='contactError'>{contactFormResult}</p>}
-            {(contactFormResult === false || typeof contactFormResult == 'string') && <form onSubmit={sendMessage}>
-                <Input name='name' placeholder='Nom :'/>
-                <Input name='mail' placeholder='Email :' type='email'/>
-                <Input name='message' placeholder='Message :' textArea/>
-                
-                <button>Envoyer</button>
-            </form>}
-            {contactFormResult === true && <p className='contactResult'>Message envoyé avec succès&nbsp;!</p>}
+            <ContactForm/>
         </section>
     </main>
 }

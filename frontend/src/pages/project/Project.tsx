@@ -20,7 +20,7 @@ export default function Project() {
         {project && <section id='project'>
             <h2>{project.title}</h2>
             
-            <p>{project.about}</p>
+            <p className='pre'>{project.about}</p>
             
             <div className='links'>
                 <Link to={project.githubLink} target='_blank'><img src='/ress/icons/github.svg' alt='github'/></Link>
