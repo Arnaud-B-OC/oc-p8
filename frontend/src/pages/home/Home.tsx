@@ -48,7 +48,7 @@ export default function Home() {
 
                 return undefined;
             });
-        }, { rootMargin: '0px 0px -300px 0px', });
+        }, { rootMargin: '0px 0px -300px 0px' });
 
         observer.observe(sectionAboutRef.current!);
         observer.observe(sectionProjectsRef.current!);
