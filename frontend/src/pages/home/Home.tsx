@@ -79,7 +79,7 @@ export default function Home() {
 
             <div className='links'>
                 <Link to='https://github.com/Arnaud-B-OC/' target='_blank'><img src='/ress/icons/github.svg' alt='github'/></Link>
-                <Link to='https://linkedin.com/in//' target='_blank'><img src='/ress/icons/linkedin.svg' alt='linkedin'/></Link>
+                <Link to='https://linkedin.com/in/arnaud-buhl/' target='_blank'><img src='/ress/icons/linkedin.svg' alt='linkedin'/></Link>
             </div>
             
             <article id='skills'>

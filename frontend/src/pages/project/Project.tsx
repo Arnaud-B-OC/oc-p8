@@ -18,7 +18,7 @@ export default function Project() {
     return <main>
         {project === false && <Error404/>}
         {project && <section id='project'>
-            <h2>{project.title}</h2>
+            <h1>{project.title}</h1>
             
             <p className='pre'>{project.about}</p>
             

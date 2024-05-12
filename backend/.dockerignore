@@ -2,6 +2,8 @@ Dockerfile
 **/*.dockerignore
 **/*.gitignore
 **/.git
+**/.env
+**/.env.dist
 
 **/node_modules
 

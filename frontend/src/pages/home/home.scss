@@ -1,10 +1,12 @@
 
 #home {
+    background-color: #5974be;
     min-height: 100vh;
 
     >img {
+        background-color: #5974be;
         position: absolute;
-        z-index: -1000;
+        z-index: 0;
         top: 0;
         bottom: 0;
 
@@ -16,6 +18,7 @@
 
     h1, h2 {
         color: white;
+        z-index: 10;
     }
     h2 {
         padding-bottom: 10rem;
