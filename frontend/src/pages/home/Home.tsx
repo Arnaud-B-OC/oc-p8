@@ -61,12 +61,11 @@ export default function Home() {
         <section id='home' className='show'>
             <img src='/ress/images/nature.webp' alt=''/>
             
-            <h1>Arnaud B</h1>
-            <h2>Développeur Web</h2>
+            <h1>Arnaud B<br/><span>Développeur Web</span></h1>
         </section>
         
         <section id='about' className={showSection1 ? 'show' : undefined} data-index={1} ref={sectionAboutRef}>
-            <h3>&Agrave; Propos</h3>
+            <h2>&Agrave; Propos</h2>
 
             <p className='pre'>
                 Je m'appelle Arnaud et je suis développeur web<br/><br/>
@@ -83,14 +82,14 @@ export default function Home() {
             </div>
             
             <article id='skills'>
-                <h4>Compétences</h4>
+                <h3>Compétences</h3>
                 
                 {apiData?.skills.map((skill, index) => <Skill key={index} {...skill}/>)}
             </article>
         </section>
         
         <section id='projects' className={showSection2 ? 'show' : undefined} data-index={2} ref={sectionProjectsRef}>
-            <h3>Mes Projets</h3>
+            <h2>Mes Projets</h2>
             
             <div>
                 {apiData?.projects.map((project, index) => <ProjectArticle key={index} {...project}/>)}
@@ -98,7 +97,7 @@ export default function Home() {
         </section>
         
         <section id='contact' className={showSection3 ? 'show' : undefined} data-index={3} ref={sectionContactRef}>
-            <h3>Me contacter</h3>
+            <h2>Me contacter</h2>
 
             <ContactForm/>
         </section>
